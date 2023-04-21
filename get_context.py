@@ -17,6 +17,8 @@ import os
 import argparse
 import pyperclip
 import utils
+from rich import print
+from rich.table import Table
 
 
 def get_context_info(file_path, header_only=False, no_header=False):
@@ -39,16 +41,32 @@ if __name__ == '__main__':
     parser.add_argument('--directory', action='store_true', help='Process all files in the directory.')
     args = parser.parse_args()
 
+    table = Table(show_header=True, header_style="bold magenta")
+    table.add_column("File Path")
+    table.add_column("Tokens")
+
+    clipboard_text = []
+
     if args.directory:
         # Process all files in the directory
         files = [f for f in os.listdir(args.file_path) if f.endswith('.py')]
-        info = '\n\n'.join([f'{os.path.join(args.file_path, f)}\n{get_context_info(os.path.join(args.file_path, f), args.header, args.no_header)}' for f in files])
+        total_tokens = 0
+        for f in files:
+            file_info = get_context_info(os.path.join(args.file_path, f), args.header, args.no_header)
+            file_tokens = utils.count_tokens(file_info)
+            total_tokens += file_tokens
+            table.add_row(os.path.join(args.file_path, f), str(file_tokens))
+            clipboard_text.append(f'{os.path.join(args.file_path, f)}\n{file_info}')
+        info = table
     else:
         # Process a single file
         info = get_context_info(args.file_path, args.header, args.no_header)
-        info = f'{args.file_path}\n{info}'
+        total_tokens = utils.count_tokens(info)
+        table.add_row(args.file_path, str(total_tokens))
+        clipboard_text.append(f'{args.file_path}\n{info}')
+        info = table
 
-    num_tokens = utils.count_tokens(info)
-    print(f"Number of tokens: {num_tokens}")
-    pyperclip.copy(info)
+    print(info)
+    print(f"Total number of tokens: {total_tokens}")
+    pyperclip.copy('\n'.join(clipboard_text))
 
