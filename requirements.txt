@@ -1,0 +1,5 @@
+pyperclip
+openai
+tiktoken
+rich
+
