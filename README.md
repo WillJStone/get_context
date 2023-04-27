@@ -1,6 +1,6 @@
 # get_context
 
-`get_context` is a Python command-line tool that extracts context information from Python files and copies it to the clipboard. The extracted information includes the file's purpose, its classes, functions, and methods. This can be helpful when you need to share or document the code without having to dig through the code manually.
+`get_context` is a Python command-line tool that extracts context information from Python files and copies it to the clipboard. The extracted information includes the file's purpose, its classes, functions, and methods. This can be helpful when you need to provide context to chatgpt when asking it to write code for you
 
 ## Installation
 
