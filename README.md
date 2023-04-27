@@ -12,3 +12,5 @@ cd get_context
 python setup.py install
 ```
 
+## Example Usage
+![][demo-screenshot.png]
