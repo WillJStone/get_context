@@ -16,9 +16,10 @@ The extracted information can be pasted wherever needed.
 import os
 import argparse
 import pyperclip
-import utils
 from rich import print
 from rich.table import Table
+
+from . import utils
 
 
 def get_context_info(file_path, header_only=False, no_header=False):
@@ -33,7 +34,7 @@ def get_context_info(file_path, header_only=False, no_header=False):
     return info
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(description='Extract context information from Python files and copy it to the clipboard.')
     parser.add_argument('file_path', help='Path of the Python file or directory to extract information from.')
     parser.add_argument('--header', action='store_true', help='Copy only the header comment.')
@@ -70,3 +71,6 @@ if __name__ == '__main__':
     print(f"Total number of tokens: {total_tokens}")
     pyperclip.copy('\n'.join(clipboard_text))
 
+
+if __name__ == '__main__':
+    main()

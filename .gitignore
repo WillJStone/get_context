@@ -1,3 +1,5 @@
 # Python stuff
 venv/
 __pycache__/
+get_context.egg-info/
+
