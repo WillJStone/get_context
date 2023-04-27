@@ -13,4 +13,4 @@ python setup.py install
 ```
 
 ## Example Usage
-![Demo][demo-screenshot.png]
+![Demo](demo-screenshot.png)
